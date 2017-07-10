@@ -23,10 +23,23 @@ String Radio::get_channel_name() {
 }
 
 String Radio::get_channel_name(int current_channel) {
-  String s = "";
+  String s;
   int c1 = current_channel / 8 + 1;
   int c2 = current_channel % 8 + 1;
-  s += c1;
+  switch(c1) {
+    case 1:
+      s = "A";break;
+    case 2:
+      s = "B";break;
+    case 3:
+      s = "E";break;
+    case 4:
+      s = "F";break;
+    case 5:
+      s = "R";break;
+    default:
+      s = "X";
+  }
   s += c2;
   return s;
 }

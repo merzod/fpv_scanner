@@ -6,23 +6,18 @@ Scanner::Scanner(Radio *r, Lcd *l) : Item("Range Scan"), radio(r), lcd(l) {
 int* Scanner::scan() {
   // LCD stuff: grid and base data
   lcd->clrScr();
-  lcd->drawRect(0, 0, 83, 47); // common border
-  lcd->drawLine(65, 0, 65, 39); // right panel
-  lcd->printNumF((double)rssi_max/100.0, 1, 67, 2);
-  lcd->print("TH_H", 67, 15);
-  lcd->printNumF((double)RSSI_THRESHOLD/100.0, 1, 69, 21);
-  lcd->printNumF((double)rssi_min/100.0, 1, 67, 33);
-  lcd->drawLine(0, 39, 84, 39); // status line
+  lcd->drawRect(0, 0, 81, 47); // common border
+  lcd->drawLine(0, 39, 81, 39); // status line
   lcd->print("Scanning...", CENTER, 41);
   int th_sc = 38 - scale(RSSI_THRESHOLD);
-  lcd->drawLine(1, th_sc, 65, th_sc);
+  lcd->drawLine(1, th_sc, 81, th_sc);
   lcd->update();
   // scan logic
   int local_max = 0; // max/min for further grid scale
   int local_min = rssi_max;
   int local_max_pt = DEF_RES_P;
   result_pointer = DEF_RES_P; // reset result pointer before scan 
-  for(int i=0; i<=31; i++) {
+  for(int i=0; i<=39; i++) {
     channel = channelList[i];
     rssi = radio->tune(channel);
     int fr = radio->get_channel_fr();
@@ -67,7 +62,7 @@ void Scanner::switch_show_results() {
 }
 
 void Scanner::show_results() {
-  lcd->clrArea(1, 40, 82, 7); // clean status line
+  lcd->clrArea(1, 40, 80, 7); // clean status line
   bool found = false;
   if(result_pointer != DEF_RES_P) {
     channel = channelList[result_pointer];
@@ -84,7 +79,7 @@ void Scanner::show_results() {
       int th_sc = 38 - scale(RSSI_THRESHOLD);
       lcd->drawLine(x, th_sc, x+2, th_sc);
     }
-    lcd->drawLine(0, 39, 84, 39); // status line
+    lcd->drawLine(0, 39, 83, 39); // status line
     lcd->invArea(x, 39, 2, 1); 
   } else {
     lcd->print("Nothing found", CENTER, 41);
