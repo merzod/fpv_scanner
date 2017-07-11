@@ -30,6 +30,7 @@ class Radio {
     int read_rssi();
     int get_channel(); // number of the channel in the table (e.g. 0-31)
     String get_channel_name(); // band number (e.g. 11-18, 21-28, ... 41-48)
+    String get_channel_letter(int ch_bit_1); // band letter
     int get_channel_fr(); // channel frequency in MHz (e.g. 5885, 5905)
     String get_channel_name(int channel); // band number (e.g. 11-18, 21-28, ... 41-48)
     int get_channel_fr(int channel); // channel frequency in MHz (e.g. 5885, 5905)

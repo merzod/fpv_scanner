@@ -18,6 +18,21 @@ void Lcd::invArea(int x, int y, int dx, int dy) {
   }
 }
 
+void Lcd::clrRect(int x, int y, int dx, int dy) {
+  for(int i=0; i<=dx; i++) {
+      this->clrPixel(x+i, y);
+  } 
+  for(int i=0; i<=dx; i++) {
+      this->clrPixel(x+i, y+dy);
+  } 
+  for(int j=0; j<dy; j++) {
+    this->clrPixel(x, y+j);
+  }
+  for(int j=0; j<dy; j++) {
+    this->clrPixel(x+dx, y+j);
+  }
+}
+
 void Lcd::printStr(String str, int x, int y) {
   char buf[str.length()+1];
   str.toCharArray(buf, str.length()+1);

@@ -22,11 +22,9 @@ String Radio::get_channel_name() {
   return get_channel_name(current_channel);
 }
 
-String Radio::get_channel_name(int current_channel) {
+String Radio::get_channel_letter(int ch_bit_1) {
   String s;
-  int c1 = current_channel / 8 + 1;
-  int c2 = current_channel % 8 + 1;
-  switch(c1) {
+  switch(ch_bit_1) {
     case 1:
       s = "A";break;
     case 2:
@@ -40,6 +38,13 @@ String Radio::get_channel_name(int current_channel) {
     default:
       s = "X";
   }
+  return s;  
+}
+
+String Radio::get_channel_name(int current_channel) {
+  int c1 = current_channel / 8 + 1;
+  String s = get_channel_letter(c1);
+  int c2 = current_channel % 8 + 1;
   s += c2;
   return s;
 }

@@ -4,6 +4,7 @@
 #include "lcd.h"
 #include "menu.h"
 #include "list.h"
+#include "grid.h"
 
 // Define pins
 #define SPI_DATA_PIN         10
@@ -39,9 +40,10 @@ extern uint8_t TinyFont[];
 Lcd lcd(PIN_LCD_CLK, PIN_LCD_DIN, PIN_LCD_DC, PIN_LCD_RST, PIN_LCD_CE);
 Radio radio(SPI_DATA_PIN, SPI_SLAVE_SELECT_PIN, SPI_CLOCK_PIN, RSSI_PIN);
 Scanner scanner(&radio, &lcd);
+Grid grid(&radio, &lcd);
 List ch_select(&radio, &lcd, false, "Channel Sel");
 List fr_select(&radio, &lcd, true, "Frequency Sel");
-Menu menu(&lcd, 3);
+Menu menu(&lcd, 4);
   
 void setup() {
   pinMode(SPI_SLAVE_SELECT_PIN, OUTPUT);
@@ -58,6 +60,7 @@ void setup() {
 }
 
 void init_menu() {
+  menu.add_item((Item*) &grid);
   menu.add_item((Item*) &scanner);
   menu.add_item((Item*) &ch_select);
   menu.add_item((Item*) &fr_select);
